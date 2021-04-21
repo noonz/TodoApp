@@ -10,6 +10,6 @@ namespace TodoApp.Data
         {
         }
 
-        public DbSet<Todo> Todos { get; set; }
+        public DbSet<Todo> TodoList { get; set; }
     }
 }

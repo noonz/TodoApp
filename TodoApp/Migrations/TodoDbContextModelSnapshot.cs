@@ -20,7 +20,7 @@ namespace TodoApp.Migrations
 
             modelBuilder.Entity("TodoApp.Models.Todo", b =>
                 {
-                    b.Property<int>("ToDoItemID")
+                    b.Property<int>("TodoItemID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -30,6 +30,7 @@ namespace TodoApp.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500);
 
@@ -49,12 +50,11 @@ namespace TodoApp.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ToDoItemID");
+                    b.HasKey("TodoItemID");
 
-                    b.ToTable("Todos");
+                    b.ToTable("TodoList");
                 });
 #pragma warning restore 612, 618
         }
