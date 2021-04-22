@@ -27,6 +27,74 @@ namespace TodoApp.Controllers
 
             return View(todoList);
         }
-        
+
+        // GET /todo/create
+        public IActionResult Create() => View();
+
+        // POST /todo/create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(Todo item)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Add(item);
+                await context.SaveChangesAsync();
+
+                TempData["Success"] = "The item has been added!";
+
+                return RedirectToAction("Index");
+            }
+
+            return View(item);
+        }
+
+        // GET /todo/edit/5
+        public async Task<ActionResult> Edit(int id)
+        {
+            Todo item = await context.TodoList.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return View(item);
+        }
+
+        // POST /todo/edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(Todo item)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Update(item);
+                await context.SaveChangesAsync();
+
+                TempData["Success"] = "The item has been updated!";
+
+                return RedirectToAction("Index");
+            }
+
+            return View(item);
+        }
+
+        // GET /todo/delete/5
+        public async Task<ActionResult> Delete(int id)
+        {
+            Todo item = await context.TodoList.FindAsync(id);
+            if (item == null)
+            {
+                TempData["Error"] = "The item doesn't exist! :(";
+            }else
+            {
+                context.TodoList.Remove(item);
+                await context.SaveChangesAsync();
+
+                TempData["Success"] = "The item has been deleted!";
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
