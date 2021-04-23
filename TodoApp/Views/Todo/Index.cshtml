@@ -4,67 +4,130 @@
     ViewData["Title"] = "Index";
 }
 
-<p>
-    <a asp-action="Create">Add New Todo Item</a>
-</p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserEmail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DueDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Done)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DoneDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Done)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DoneDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TodoItemID">Edit</a> |
-                @*<a asp-action="Details" asp-route-id="@item.TodoItemID">Details</a> |*@
-                <a asp-action="Delete" asp-route-id="@item.TodoItemID">Delete</a>
-            </td>
-        </tr>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a asp-action="Create">Add New Todo Item</a>
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserEmail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DueDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Done)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DoneDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                @*@if (item.Done && DateTime.Compare(Convert.ToDateTime(item.DoneDate), DateTime.Now) < 0) {*@
+                @if (item.Done || !item.Done) { 
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AddedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DueDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Done)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DoneDate)
+                        </td>
+                        @if (item.Done)
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.TodoItemID">Edit</a> |
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.TodoItemID">Edit</a>
+                                <a asp-action="Done" asp-route-id="@item.TodoItemID">Done</a>
+                                <a asp-action="Delete" asp-route-id="@item.TodoItemID">Delete</a>
+                            </td>
+                        }
+
+                    </tr>
+                }
+            @*<tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Done)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoneDate)
+                </td>
+                @if (item.Done)
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.TodoItemID">Edit</a> |
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.TodoItemID">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.TodoItemID">Delete</a>
+                    </td>
+                }
+
+            </tr>*@
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+}
+

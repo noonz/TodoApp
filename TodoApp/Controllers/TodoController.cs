@@ -39,8 +39,9 @@ namespace TodoApp.Controllers
             if (ModelState.IsValid)
             {
                 context.Add(item);
+                item.UserEmail = User.Identity.Name;
+                item.AddedDate = DateTime.Now.Date;
                 await context.SaveChangesAsync();
-
                 TempData["Success"] = "The item has been added!";
 
                 return RedirectToAction("Index");
@@ -69,8 +70,17 @@ namespace TodoApp.Controllers
             if (ModelState.IsValid)
             {
                 context.Update(item);
-                await context.SaveChangesAsync();
+                if (item.Done)
+                {
+                    item.DoneDate = DateTime.Now.Date;
+                }
+                else
+                {
+                    item.DoneDate = null;
+                }
 
+
+                await context.SaveChangesAsync();
                 TempData["Success"] = "The item has been updated!";
 
                 return RedirectToAction("Index");
@@ -95,6 +105,18 @@ namespace TodoApp.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        // GET/todo/done/5
+        public async Task<ActionResult> Done(int id)
+        {
+            Todo item = await context.TodoList.FindAsync(id);
+            item.Done = true;
+            item.DoneDate = DateTime.Now;
+            await context.SaveChangesAsync();
+            TempData["Success"] = "Task complete!";
+            return RedirectToAction("Index");
+            
         }
     }
 }

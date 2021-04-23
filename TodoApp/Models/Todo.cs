@@ -24,19 +24,21 @@ namespace TodoApp.Models
         [StringLength(500)]
         public string Description { get; set; }
 
-        // string values for date for simplicity
         [Display(Name = "Date Added")]
-        [StringLength(50)]
-        public string AddedDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime AddedDate { get; set; }
 
         [Display(Name = "Date Due")]
-        [StringLength(50)]
-        public string DueDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? DueDate { get; set; }
 
         public bool Done { get; set; }
 
         [Display(Name = "Date Complete")]
-        [StringLength(50)]
-        public string DoneDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? DoneDate { get; set; }
     }
 }
