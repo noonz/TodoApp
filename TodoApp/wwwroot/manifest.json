@@ -1,0 +1,14 @@
+{
+  "name": "TodoApp",
+  "description": "Simple app to keep track of todo items",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "sizes": "144x144",
+      "type": "image/png",
+      "src": "https://pics.freeicons.io/uploads/icons/png/20282721701619191949-512.png"
+    }
+  ]
+}
