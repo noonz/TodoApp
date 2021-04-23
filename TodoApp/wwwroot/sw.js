@@ -4,11 +4,11 @@ function swInstall(event) {
     event.waitUntil(
         caches.open(cacheName).then((cache) => {
             return cache.addAll([
-                './',
-                './todo/index',
-                './home/index',
-                './css/site.css',
-                './js/site.js'
+                '/',
+                '/todo/index',
+                '/home/index',
+                '/css/site.css',
+                '/js/site.js'
             ]);
         })
     );

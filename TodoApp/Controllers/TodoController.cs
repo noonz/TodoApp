@@ -70,15 +70,17 @@ namespace TodoApp.Controllers
             if (ModelState.IsValid)
             {
                 context.Update(item);
-                if (item.Done)
+                if(item.DoneDate != null)
+                {
+                    await context.SaveChangesAsync();
+                } else if (item.Done)
                 {
                     item.DoneDate = DateTime.Now.Date;
                 }
-                else
+                if (!item.Done)
                 {
                     item.DoneDate = null;
                 }
-
 
                 await context.SaveChangesAsync();
                 TempData["Success"] = "The item has been updated!";
