@@ -41,6 +41,7 @@ namespace TodoApp.Controllers
                 context.Add(item);
                 item.UserEmail = User.Identity.Name;
                 item.AddedDate = DateTime.Now.Date;
+                item.DueDate = item.AddedDate.AddHours(24);
                 await context.SaveChangesAsync();
                 TempData["Success"] = "The item has been added!";
 
