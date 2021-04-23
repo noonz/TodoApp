@@ -109,7 +109,7 @@
                 {
                     @*@if (item.Done || !item.Done) {*@
                     <tr>
-                        <td>
+                        <td id="dueTitle">
                             @Html.DisplayFor(modelItem => item.Title)
                         </td>
                         <td>
@@ -128,14 +128,18 @@
                             <a asp-action="Edit" asp-route-id="@item.TodoItemID">Edit</a> |
                             <a asp-action="Done" asp-route-id="@item.TodoItemID">Done</a> |
                             <a asp-action="Delete" asp-route-id="@item.TodoItemID">Delete</a>
+                            <input type="button" hidden id="copyToClipboard" value="Copy title" />
+
+                            
                         </td>
-
-
                     </tr>
                 }
             }
         </tbody>
     </table>
+    <dialog id="clipboardPerms">
+        <h2>Permissions required to save item title to clipboard</h2>
+    </dialog>
 }
 else
 {
