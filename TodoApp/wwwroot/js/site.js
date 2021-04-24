@@ -19,3 +19,9 @@ if ('clipboard' in navigator) {
         $("#copyToClipboard").removeAttr('hidden');
     })
 }
+
+// hide create new item btn and disable the ability to complete task if offline, requires refresh
+if (navigator.onLine) {
+    $("#newItemBtn").removeAttr('hidden');
+    $("#doneBtn").removeAttr('hidden');
+}
